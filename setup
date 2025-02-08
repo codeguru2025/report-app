@@ -1,0 +1,21 @@
+report-app/
+├── models/
+│   └── Reports.js
+├── views/
+│   ├── index.ejs
+│   ├── submit.ejs
+│   └── reports.ejs
+├── routes/
+│   ├── reportRoutes.js
+├── controllers/
+│   ├── reportController.js
+├── public/
+│   ├── css/
+│   │   └── styles.css
+│   └── images/
+│       └── HD.jpg
+├── app.js
+├── .env
+├── package-lock.json
+├── setup
+└── package.json

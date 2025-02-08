@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>View Reports</title>
+  <link rel="stylesheet" href="/css/styles.css">
+  <link rel="icon" type="image/png" href="/images/CROWN.png"> 
+</head>
+<body>
+  <div class="header">
+    <img src="/images/HD.jpg" alt="Logo" class="logo">
+    <h1>Reports</h1>
+  </div>
+  <div class="container">
+        <!-- Navigation Buttons -->
+        <a href="/" class="button">Home</a>
+        <button class="button" onclick="window.history.back()">Back</button>
+   
+      <!-- Reports Table -->
+    <table>
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Name</th>
+          <th>Surname</th>
+          <th>Team</th>
+          <th>Branch</th>
+          <th>Appointments</th>
+          <th>Presentations</th>
+          <th>Closed Cases</th>
+          <th>Call Backs</th>
+          <th>Referrals</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% reports.forEach(report => { %>
+        <tr>
+          <td><%= report.date.toISOString().split('T')[0] %></td>
+          <td><%= report.name %></td>
+          <td><%= report.surname %></td>
+          <td><%= report.team %></td>
+          <td><%= report.branch %></td>
+          <td><%= report.appointments %></td>
+          <td><%= report.presentations %></td>
+          <td><%= report.closedCases %></td>
+          <td><%= report.callBacks %></td>
+          <td><%= report.referrals %></td>
+        </tr>
+        <% }) %>
+      </tbody>
+    </table>
+
+    <!-- Download Buttons -->
+            <!-- Excel Download Button -->
+            <button class="button" onclick="downloadReport('excel')">Download Excel</button>
+            <!-- PDF Download Button -->
+            <button class="button" onclick="downloadReport('pdf')">Download PDF</button>
+            </div>
+
+
+  </div>
+
+  <script>
+    function downloadReport(format) {
+      // Grab the filter values from the form
+      const startDate = document.getElementById("startDate").value;
+      const endDate = document.getElementById("endDate").value;
+      const agent = document.getElementById("agent").value;
+      const team = document.getElementById("team").value;
+
+      // Construct the URL with query parameters
+      const url = `/download/${format}?startDate=${startDate}&endDate=${endDate}&agent=${agent}&team=${team}`;
+      window.location.href = url;  // This will trigger the file download
+    }
+  </script>
+</body>
+</html>

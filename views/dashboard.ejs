@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="icon" type="image/png" href="/images/CROWN.png">
+        <!-- Include Chart.js for visual aids -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <header>
+        <div class="header">
+            <img src="/images/HD.jpg" alt="Logo" class="logo">
+            <h1>Reports Dashboard</h1>
+                  <!-- Navigation Buttons -->
+        <a href="/" class="button">Home</a>
+        <button class="button" onclick="window.history.back()">Back</button>
+          </div>
+ 
+    </header>
+
+    <!-- Create containers for visual aids -->
+    <div class="charts">
+        <canvas id="reportChart1"></canvas>  <!-- Chart 1: Appointments per team -->
+        <canvas id="reportChart2"></canvas>  <!-- Chart 2: Presentations per team -->
+    </div>
+
+    <script>
+        // Ensure the data passed from the controller is correctly embedded into the JavaScript
+        const reportData1 = <%= JSON.stringify(reportData1) %>;  // Data for appointments
+        const reportData2 = <%= JSON.stringify(reportData2) %>;  // Data for presentations
+
+        // Chart 1: Bar chart for total appointments per team
+        const ctx1 = document.getElementById('reportChart1').getContext('2d');
+        const reportChart1 = new Chart(ctx1, {
+            type: 'bar',
+            data: {
+                labels: reportData1.labels, // Team names as x-axis labels
+                datasets: [{
+                    label: 'Total Appointments per Team', // Chart label
+                    data: reportData1.values, // Data for the y-axis (total appointments)
+                    backgroundColor: 'rgba(255, 99, 132, 0.2)', // Light red background color
+                    borderColor: 'rgba(255, 99, 132, 1)', // Dark red border color
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true // Ensures the y-axis starts at 0
+                    }
+                }
+            }
+        });
+
+        // Chart 2: Line chart for total presentations per team
+        const ctx2 = document.getElementById('reportChart2').getContext('2d');
+        const reportChart2 = new Chart(ctx2, {
+            type: 'line',
+            data: {
+                labels: reportData2.labels, // Team names as x-axis labels
+                datasets: [{
+                    label: 'Total Presentations per Team', // Chart label
+                    data: reportData2.values, // Data for the y-axis (total presentations)
+                    fill: false, // No filling under the line
+                    borderColor: 'rgba(75, 192, 192, 1)', // Green border color
+                    tension: 0.1 // Adjust line smoothness
+                }]
+            },
+            options: {
+                responsive: true
+            }
+        });
+    </script>
+</body>
+</html>
